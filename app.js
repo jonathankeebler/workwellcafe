@@ -97,4 +97,12 @@ app.post("/charge", (req, res) => {
     });
 });
 
+app.get("/tick", (req, res) => {
+
+    var lambda = require("./lambda");
+    lambda.tick();
+
+    res.send("TICK");
+})
+
 module.exports = app;
