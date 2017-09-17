@@ -46,7 +46,6 @@ function get_seats(next)
     });
 }
 
-
 app.post("/charge", (req, res) => {
     let amount = 500;
 
@@ -113,6 +112,31 @@ app.get("/tick", (req, res) => {
     lambda.tick();
 
     res.send("TICK");
+})
+
+app.get("/empty_all_seats", (req, res) => {
+    
+    var lambda = require("./lambda");
+
+    get_seats(function(err, seats)
+    {
+        if(err) console.log(err);
+
+        if(seats && seats.length)
+        {
+            seats.forEach(function(seat)
+            {
+                if(seat.date && seat.date.free)
+                {
+                    seat.date.free = new Date(0);
+                    seat.save();
+                }
+            });
+
+            setTimeout(lambda.tick, 1000);
+        }
+    });
+        
 })
 
 module.exports = app;
