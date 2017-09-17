@@ -6,7 +6,8 @@ The seat registration system behind the [WorkWell Cafe](http://www.workwellcafe.
 ## Requirements
 - node.js >=6
 - [serverless 1.21+](serverless.com)
-- Stripe secret key
+- Stripe secret key (YOUR_SECRET_CODE in sample code below)
+- AWS credentials configured in your shell
 
 ## Installation
 ```sh
