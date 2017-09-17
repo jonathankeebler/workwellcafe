@@ -134,6 +134,8 @@ app.get("/empty_all_seats", (req, res) => {
             });
 
             setTimeout(lambda.tick, 1000);
+
+            res.send("All seats have been emptied");
         }
     });
         
