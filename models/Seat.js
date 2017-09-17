@@ -8,9 +8,11 @@ var seatSchema = new dynamoose.Schema({
     id: String,
     date: {
         booked: Date,
-        free: Date
+        free: Date,
+        expiry_warning: Date
     },
-    customer: String
+    customer: String,
+    phone_number: String
 },
 {
     throughput: {read: 5, write: 5}

@@ -32,7 +32,12 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+        - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:us-east-1:*:*"
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: "*"
 
 # you can overwrite defaults here
 #  stage: dev
@@ -84,5 +89,5 @@ functions:
     handler: lambda.tick
     events:
       - schedule:
-          rate: rate(1 minute)
-          enabled: true
+          rate: rate(5 minutes)
+          enabled: false

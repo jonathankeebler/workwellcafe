@@ -85,6 +85,16 @@ app.post("/charge", (req, res) => {
                     seat.date.booked = new Date();
                     seat.date.free = new Date(Date.now() + 1*60*60*1000);
 
+                    if(req.body.phone_number)
+                    {
+                        var phone_number = req.body.phone_number.replace(/[^\d]/g, "");
+
+                        if(phone_number.length == 11)
+                        {
+                            seat.phone_number = "+" + phone_number;
+                        }
+                    }
+
                     seat.save(function(err)
                     {
                         if(err) console.log(err);
