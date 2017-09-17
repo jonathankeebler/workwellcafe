@@ -1,0 +1,26 @@
+{
+  "name": "workwellcafe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://jonathankeebler@github.com/jonathankeebler/workwellcafe.git"
+  },
+  "author": "Jonathan Keebler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonathankeebler/workwellcafe/issues"
+  },
+  "homepage": "https://github.com/jonathankeebler/workwellcafe#readme",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "dynamoose": "^0.8.5",
+    "express": "^4.15.4",
+    "pug": "^2.0.0-rc.4",
+    "stripe": "^5.0.0"
+  }
+}

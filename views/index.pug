@@ -1,0 +1,31 @@
+html
+  body
+    form(action="/charge", method="post")
+
+        ul
+            each seat in seats
+                li 
+                    if !seat.customer
+                        input(type='checkbox', name="seat-" + seat.id) 
+                    if seat.customer
+                        input(type='checkbox', name="seat-" + seat.id, checked, disabled) 
+                    label Seat #{seat.id}: 
+                    if !seat.customer
+                        input(type="radio", name="hours-" + seat.id, value=1) 
+                        label 1 hour
+                        input(type="radio", name="hours-" + seat.id, value=2) 
+                        label 2 hours
+                        input(type="radio", name="hours-" + seat.id, value=3) 
+                        label 3 hours
+                    if seat.customer
+                        label BOOKED
+                        
+
+
+        script(
+            src="//checkout.stripe.com/v2/checkout.js",
+            class="stripe-button",
+            data-key=stripe_key,
+            data-locale="auto",
+            data-description="Workwell Cafe Seats",
+            data-amount="200")
