@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jonathankeebler/workwellcafe#readme",
   "dependencies": {
+    "aws-serverless-express": "^3.0.2",
     "body-parser": "^1.18.1",
     "dynamoose": "^0.8.5",
     "express": "^4.15.4",
