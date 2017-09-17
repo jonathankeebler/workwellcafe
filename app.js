@@ -1,7 +1,6 @@
 var Seat = require("./models/Seat.js");
 
-keyPublishable = process.env.PUBLISHABLE_KEY;
-const keySecret = process.env.SECRET_KEY;
+const keySecret = process.env.STRIPE_SECRET;
 
 const app = require("express")();
 var stripe = require("stripe")(keySecret);
@@ -10,7 +9,12 @@ app.set("view engine", "pug");
 app.use(require("body-parser").urlencoded({extended: false}));
 
 
-app.get("/seats", (req, res) => {
+app.get("/", (req, res) => {
+
+    if(!keySecret)
+    {
+        return res.send("No STRIPE_SECRET was set in the ENV");
+    }
 
     get_seats(function(err, seats)
     {
@@ -28,8 +32,7 @@ app.get("/seats", (req, res) => {
         });
 
         res.render("index.pug", {
-            seats: seats,
-            stripe_key: keyPublishable
+            seats: seats
         })
     })
 
