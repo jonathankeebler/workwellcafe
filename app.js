@@ -2,12 +2,14 @@ var Seat = require("./models/Seat.js");
 
 const keySecret = process.env.STRIPE_SECRET;
 
-const app = require("express")();
+const express = require("express"), path = require("path");
+const app = express();
 var stripe = require("stripe")(keySecret);
 
 app.set("view engine", "pug");
 app.use(require("body-parser").urlencoded({extended: false}));
 
+app.use(express.static(path.join(__dirname, './')));
 
 app.get("/", (req, res) => {
 

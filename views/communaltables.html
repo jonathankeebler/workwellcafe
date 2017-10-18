@@ -1,0 +1,56 @@
+<html>
+    
+    <head>
+        <title>Workwell Cafe</title>
+        <style tyle="text/css">
+            #communaltables {
+                position: relative;
+                background: url(images/communaltables.png);
+                width: 355px;
+                height: 515px;
+            }
+            span {
+                position: absolute;
+                background: #7ED321;
+                padding: 2px;
+                border-radius: 5px;
+            }
+            span.taken {
+                background: #999;
+            }
+            #seat1 {
+                top: 105px;
+                left: 44px;
+            }
+            #seat2 {
+                top: 41px;
+                left: 100px;
+            }
+            #seat3 {
+                top: 26px;
+                left: 167px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div id="Header">
+            <h1>Communal tables</h1>
+        </div>
+        <form>
+            <div id="communaltables">
+                <span id="seat1">
+                    <input type="checkbox" name="seat" value="1">1
+                </span>
+                <span id="seat2" class="taken">
+                    <input type="checkbox" name="seat" value="2" disabled>2
+                </span>
+                <span id="seat3">
+                    <input type="checkbox" name="seat" value="3">3
+                </span>
+            </div>
+            <button type="submit">Check In</button>
+        </form>
+    </body>
+    
+    </html>

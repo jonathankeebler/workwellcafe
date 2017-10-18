@@ -1,34 +1,69 @@
-html
-  body
-    form(action="charge", method="post")
+<html>
+    
+    <head>
+        <title>Workwell Cafe</title>
+        style(type="text/css").
+            #communaltables {
+                position: relative;
+                background: url(images/communaltables.png);
+                width: 355px;
+                height: 515px;
+            }
+            span {
+                position: absolute;
+                background: #7ED321;
+                padding: 2px;
+                border-radius: 5px;
+            }
+            span.taken {
+                background: #999;
+            }
+            #seat1 {
+                top: 105px;
+                left: 44px;
+            }
+            #seat2 {
+                top: 41px;
+                left: 100px;
+            }
+            #seat3 {
+                top: 26px;
+                left: 167px;
+            }
+    </head>
+    
+    <body>
+        <div id="Header">
+            <h1>Communal tables</h1>
+        </div>
+        form(action="charge", method="post")
 
-        label Your cell number: 
-        input(type="text",name="phone_number",value="+1")
+            label Your cell number: 
+            input(type="text",name="phone_number",value="+1")
 
-        ul
-            each seat in seats
-                li 
+
+            <div id="communaltables">
+
+                
+                each seat in seats
                     if !seat.customer
-                        input(type='checkbox', name="seat-" + seat.id) 
+                        span(id="seat" + seat.id)
+                            input(type='checkbox', name="seat-" + seat.id) 
+                            label Seat #{seat.id}
                     if seat.customer
-                        input(type='checkbox', name="seat-" + seat.id, checked, disabled) 
-                    label Seat #{seat.id}: 
-                    if !seat.customer
-                        input(type="radio", name="hours-" + seat.id, value=1) 
-                        label 1 hour
-                        input(type="radio", name="hours-" + seat.id, value=2) 
-                        label 2 hours
-                        input(type="radio", name="hours-" + seat.id, value=3) 
-                        label 3 hours
-                    if seat.customer
-                        label BOOKED
-                        
+                        span(id="seat" + seat.id, class="taken")
+                            input(type='checkbox', name="seat-" + seat.id, checked, disabled) 
+                            label Seat #{seat.id}
 
+            </div>
+            script(
+                src="//checkout.stripe.com/v2/checkout.js",
+                class="stripe-button",
+                data-key="pk_test_tVXZFnduzq1Dzrw4ggAibgZo",
+                data-locale="auto",
+                data-description="Workwell Cafe Seats",
+                data-amount="200")
 
-        script(
-            src="//checkout.stripe.com/v2/checkout.js",
-            class="stripe-button",
-            data-key="pk_test_tVXZFnduzq1Dzrw4ggAibgZo",
-            data-locale="auto",
-            data-description="Workwell Cafe Seats",
-            data-amount="200")
+    </body>
+    
+</html>
