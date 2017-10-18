@@ -2,6 +2,8 @@
     
     <head>
         <title>Workwell Cafe</title>
+        <script src="https://cdn.auth0.com/js/auth0/8.10.1/auth0.min.js"></script>
+        <script src="/scripts/app.js"></script>
         style(type="text/css").
             #communaltables {
                 position: relative;
@@ -36,6 +38,39 @@
         <div id="Header">
             <h1>Communal tables</h1>
         </div>
+
+        <div class="content">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Auth0 - JavaScript</a>
+
+                <button id="btn-home-view" class="btn btn-primary btn-margin">
+                    Home
+                </button>
+
+                <button id="btn-login" class="btn btn-primary btn-margin">
+                    Log In
+                </button>
+
+                <button id="btn-logout" class="btn btn-primary btn-margin">
+                    Log Out
+                </button>
+
+            </div>
+            </div>
+        </nav>
+
+        <main class="container">
+            <!-- home view -->
+            <div id="home-view">
+            <h4></h4>
+            </div>
+            
+        </main>
+
+        </div>
+
         form(action="charge", method="post")
 
             label Your cell number: 
