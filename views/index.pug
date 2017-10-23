@@ -39,6 +39,10 @@
             <h1>Communal tables</h1>
         </div>
 
+        if logged_in
+            form(action="logout", method="post")
+                input(type="submit", value="Logout")
+
         form(action="checkedin", method="post")
 
             label Your cell number: 

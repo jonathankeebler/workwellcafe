@@ -24,6 +24,12 @@ var auth = new expressAuth0Simple(app, {
 
 app.get("/", (req, res) => {
 
+    if(req.session.seats_selected)
+    {
+        res.redirect("/checkedin?seats=" + req.session.seats_selected);
+        return;
+    }
+
     get_seats(function(err, seats)
     {
         seats = seats.map(function(seat)
@@ -40,7 +46,8 @@ app.get("/", (req, res) => {
         });
 
         res.render("index.pug", {
-            seats: seats
+            seats: seats,
+            logged_in: req.user ? true : false
         })
     })
 
@@ -79,6 +86,17 @@ function show_checkin(req, res)
     });
 }
 
+app.get("/checkout", (req, res) => {
+    res.redirect("/checkedin");
+});
+
+app.post("/logout", (req, res) => {
+    req.user = null;
+    req.logout();
+    
+    res.send("You've been logged out.")
+});
+
 app.post("/checkout", auth.requiresLogin, (req, res) => {
 
     get_seats(function(err, seats)
@@ -115,76 +133,98 @@ app.post("/checkout", auth.requiresLogin, (req, res) => {
 
 app.get("/checkedin", auth.requiresLogin, (req, res) => {
 
-    show_checkin(req, res);
-    
+    if(req.query.seats)
+    {
+        perform_checkin(req, res);
+    }
+    else
+    {
+        show_checkin(req, res);
+    }
 });
 
-app.post("/checkedin", auth.requiresLogin, (req, res) => {
-
-    var seats_selected = [];
+var perform_checkin = (req, res) => {
     
-    Object.keys(req.body).forEach(function(key)
-    {
-        if(key.indexOf("seat-") === 0 && req.body[key] == "on")
+        var seats_selected = ( req.query.seats ? req.query.seats.split(",") : null ) || [];
+        
+        if(seats_selected.length == 0)
         {
-            seats_selected.push(key.replace("seat-", ""));
-        }
-    });
-
-    var user_email = get_email(req);
-
-    var seat_promises = [];
-    var seat_saves = [];
-
-    seats_selected.forEach(function(seat_id)
-    {
-        seat_promises.push(Seat.get({id: seat_id}).then(function(seat)
-        {
-            if(seat && !seat.customer)
+            Object.keys(req.body).forEach(function(key)
             {
-                seat.customer = user_email;
-                if(!seat.date) seat.date = {};
-                seat.date.booked = new Date();
-                //seat.date.free = new Date(Date.now() + 1*60*60*1000);
-
-                if(req.body.phone_number)
+                if(key.indexOf("seat-") === 0 && req.body[key] == "on")
                 {
-                    var phone_number = req.body.phone_number.replace(/[^\d]/g, "");
-
-                    if(phone_number.length == 11)
-                    {
-                        seat.phone_number = "+" + phone_number;
-                    }
+                    seats_selected.push(key.replace("seat-", ""));
                 }
-
-                seat_saves.push(seat.save());
-            }
-        }));
-    });
-
-    Promise.all(seat_promises).then(function()
-    {
-        if(seat_saves.length)
-        {
-            Promise.all(seat_saves).then(function()
-            {
-                show_checkin(req, res);
-            }).catch(function(err)
-            {
-                console.log(err);
-                show_checkin(req, res);
             });
+        }
+    
+        var user_email = get_email(req);
+    
+        var seat_promises = [];
+        var seat_saves = [];
+    
+        if(!req.user)
+        {
+            req.session.seats_selected = seats_selected;
+            auth.requiresLogin(req, res);
+            return;
         }
         else
         {
-            show_checkin(req, res);
+            req.session.seats_selected = null;
         }
-    }).catch(function(err)
-    {
-        console.log(err);
-        show_checkin(req, res);
-    });
-});
+    
+        seats_selected.forEach(function(seat_id)
+        {
+            seat_promises.push(Seat.get({id: seat_id}).then(function(seat)
+            {
+                if(seat && !seat.customer)
+                {
+                    seat.customer = user_email;
+                    if(!seat.date) seat.date = {};
+                    seat.date.booked = new Date();
+                    //seat.date.free = new Date(Date.now() + 1*60*60*1000);
+    
+                    if(req.body.phone_number)
+                    {
+                        var phone_number = req.body.phone_number.replace(/[^\d]/g, "");
+    
+                        if(phone_number.length == 11)
+                        {
+                            seat.phone_number = "+" + phone_number;
+                        }
+                    }
+    
+                    seat_saves.push(seat.save());
+                }
+            }));
+        });
+    
+        Promise.all(seat_promises).then(function()
+        {
+            if(seat_saves.length)
+            {
+                Promise.all(seat_saves).then(function()
+                {
+                    show_checkin(req, res);
+                }).catch(function(err)
+                {
+                    console.log(err);
+                    show_checkin(req, res);
+                });
+            }
+            else
+            {
+                show_checkin(req, res);
+            }
+        }).catch(function(err)
+        {
+            console.log(err);
+            show_checkin(req, res);
+        });
+    };
+
+app.post("/checkedin", perform_checkin);
 
 function get_email(req)
 {
