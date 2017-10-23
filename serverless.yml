@@ -21,7 +21,9 @@ provider:
   name: aws
   runtime: nodejs6.10
   environment:
-    STRIPE_SECRET: ${env:STRIPE_SECRET}
+    AUTH0_CLIENT_ID: ${env:AUTH0_CLIENT_ID}
+    AUTH0_CLIENT_SECRET: ${env:AUTH0_CLIENT_SECRET}
+    AUTH0_DOMAIN: ${env:AUTH0_DOMAIN}
   iamRoleStatements: # permissions for all of your functions can be set here
     - Effect: Allow
       Action: # Gives permission to DynamoDB tables in a specific region
