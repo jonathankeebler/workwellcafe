@@ -21,9 +21,12 @@
     "aws-sdk": "^2.117.0",
     "aws-serverless-express": "^3.0.2",
     "body-parser": "^1.18.1",
+    "connect-dynamodb": "^2.0.0",
     "dynamoose": "^0.8.5",
     "express": "^4.15.4",
+    "express-auth0-simple": "^3.1.0-rc.2",
     "pug": "^2.0.0-rc.4",
-    "stripe": "^5.0.0"
+    "stripe": "^5.0.0",
+    "zpad": "^0.5.0"
   }
 }

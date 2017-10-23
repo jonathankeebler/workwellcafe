@@ -39,39 +39,7 @@
             <h1>Communal tables</h1>
         </div>
 
-        <div class="content">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Auth0 - JavaScript</a>
-
-                <button id="btn-home-view" class="btn btn-primary btn-margin">
-                    Home
-                </button>
-
-                <button id="btn-login" class="btn btn-primary btn-margin">
-                    Log In
-                </button>
-
-                <button id="btn-logout" class="btn btn-primary btn-margin">
-                    Log Out
-                </button>
-
-            </div>
-            </div>
-        </nav>
-
-        <main class="container">
-            <!-- home view -->
-            <div id="home-view">
-            <h4></h4>
-            </div>
-            
-        </main>
-
-        </div>
-
-        form(action="charge", method="post")
+        form(action="checkedin", method="post")
 
             label Your cell number: 
             input(type="text",name="phone_number",value="+1")
@@ -91,13 +59,8 @@
                             label Seat #{seat.id}
 
             </div>
-            script(
-                src="//checkout.stripe.com/v2/checkout.js",
-                class="stripe-button",
-                data-key="pk_test_tVXZFnduzq1Dzrw4ggAibgZo",
-                data-locale="auto",
-                data-description="Workwell Cafe Seats",
-                data-amount="200")
+
+            input(type="submit", value="Check in!")
 
     </body>
     
