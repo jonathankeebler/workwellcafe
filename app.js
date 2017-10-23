@@ -137,31 +137,6 @@ app.all("/admin", (req, res) => {
     {
         if(err) console.log(err);
 
-        if(req.query.seat)
-        {
-            var selected_seat = seats.filter(function(seat)
-            {
-                return seat.id == req.query.seat;
-            })[0];
-
-            if(selected_seat)
-            {
-                selected_seat.customer = null;
-                selected_seat.save(function(err)
-                {
-                    get_seats(function(err, seats)
-                    {
-                        if(err) console.log(err);
-
-                        res.render("admin.pug", {seats: seats});
-                    });
-                    
-                });
-
-                return;
-            }
-        }
-
         var times = {};
         var customers = {};
         seats.forEach(function(seat)
@@ -183,7 +158,34 @@ app.all("/admin", (req, res) => {
             customers[customer] = Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes));
         });
 
+        if(req.query.seat)
+        {
+            var selected_seat = seats.filter(function(seat)
+            {
+                return seat.id == req.query.seat;
+            })[0];
+
+            if(selected_seat)
+            {
+                selected_seat.customer = null;
+                selected_seat.save(function(err)
+                {
+                    get_seats(function(err, seats)
+                    {
+                        if(err) console.log(err);
+
+                        res.render("admin.pug", {seats: seats, times: times, customers: customers});
+                    });
+                    
+                });
+
+                return;
+            }
+        }
+
         res.render("admin.pug", {seats: seats, times: times, customers: customers});
+
+        
     });
 
 });
