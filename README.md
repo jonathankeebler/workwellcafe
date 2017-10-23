@@ -7,6 +7,12 @@ The seat registration system behind the [WorkWell Cafe](http://www.workwellcafe.
 - node.js >=6
 - Stripe secret key (YOUR_SECRET_CODE in sample code below)
 - AWS credentials configured in your shell
+- Auth0 config variables in your shell 
+```
+export AUTH0_CLIENT_ID='REPLACE_ME';
+export AUTH0_CLIENT_SECRET='REPLACE_ME';
+export AUTH0_DOMAIN='workwellcafe.auth0.com';
+```
 
 ## Installation
 ```sh
@@ -15,12 +21,12 @@ npm install
 ```
 ## Running locally
 ```sh
-STRIPE_SECRET=YOUR_SECRET_CODE node index.js
+node index.js
 ```
 
 ## Deployment
 ```sh
-STRIPE_SECRET=YOUR_SECRET_CODE serverless deploy
+serverless deploy
 ```
 
 ## Credit

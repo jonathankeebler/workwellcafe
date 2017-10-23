@@ -3,11 +3,10 @@
     <head>
         <title>Workwell Cafe</title>
         <script src="https://cdn.auth0.com/js/auth0/8.10.1/auth0.min.js"></script>
-        <script src="/scripts/app.js"></script>
         style(type="text/css").
             #communaltables {
                 position: relative;
-                background: url(images/communaltables.png);
+                background: url(https://s3.amazonaws.com/workwellcafe-images/communaltables.png);
                 width: 355px;
                 height: 515px;
             }
@@ -44,9 +43,6 @@
                 input(type="submit", value="Logout")
 
         form(action="checkedin", method="post")
-
-            label Your cell number: 
-            input(type="text",name="phone_number",value="+1")
 
 
             <div id="communaltables">

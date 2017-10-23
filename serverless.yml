@@ -17,6 +17,9 @@ service: workwellcafe # NOTE: update this with your service name
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+plugins:
+  - serverless-domain-manager
+
 provider:
   name: aws
   runtime: nodejs6.10
@@ -93,3 +96,10 @@ functions:
       - schedule:
           rate: rate(5 minutes)
           enabled: false
+
+custom:
+  customDomain:
+    domainName: seats.workwellcafe.com
+    stage: dev
+    basePath: ''
+    createRoute53Record: false
