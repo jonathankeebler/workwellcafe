@@ -131,6 +131,63 @@ app.post("/checkout", auth.requiresLogin, (req, res) => {
     });
 });
 
+app.all("/admin", (req, res) => {
+
+    get_seats(function(err, seats)
+    {
+        if(err) console.log(err);
+
+        if(req.query.seat)
+        {
+            var selected_seat = seats.filter(function(seat)
+            {
+                return seat.id == req.query.seat;
+            })[0];
+
+            if(selected_seat)
+            {
+                selected_seat.customer = null;
+                selected_seat.save(function(err)
+                {
+                    get_seats(function(err, seats)
+                    {
+                        if(err) console.log(err);
+
+                        res.render("admin.pug", {seats: seats});
+                    });
+                    
+                });
+
+                return;
+            }
+        }
+
+        var times = {};
+        var customers = {};
+        seats.forEach(function(seat)
+        {
+            if(seat.customer)
+            {
+                var minutes = ( new Date() - new Date(seat.date.booked) ) / 1000 / 60;
+                times[seat.id] = Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes));
+                
+                if(!customers[seat.customer]) customers[seat.customer] = 0;
+                customers[seat.customer] += minutes;
+            }
+            
+        });
+
+        Object.keys(customers).forEach(function(customer)
+        {
+            var minutes = customers[customer];
+            customers[customer] = Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes));
+        });
+
+        res.render("admin.pug", {seats: seats, times: times, customers: customers});
+    });
+
+});
+
 app.get("/checkedin", auth.requiresLogin, (req, res) => {
 
     if(req.query.seats)

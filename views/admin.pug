@@ -1,0 +1,13 @@
+html
+    head
+    body
+        form(action="", method="post")
+            each seat in seats
+                li
+                    span Seat #{seat.id}
+                    if seat.customer
+                        span #{seat.customer} (#{customers[seat.customer]})
+                        span #{new Date(seat.date.booked)}
+                        span #{times[seat.id]}
+                        a(href="?seat=" + seat.id) Checkout
+                    
