@@ -9,5 +9,7 @@ html
                         span #{seat.customer} (#{customers[seat.customer]})
                         span #{new Date(seat.date.booked)}
                         span #{times[seat.id]}
-                        a(href="?seat=" + seat.id) Checkout
-                    
+                        a(href="?checkout=" + seat.id) Checkout
+                    else
+                        input(type="text", id="email" + seat.id)
+                        a(href="?checkin=" + seat.id onClick="this.href += '&email=' + encodeURI(document.getElementById('email" + seat.id + "').value) ") Checkin

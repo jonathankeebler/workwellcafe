@@ -158,16 +158,42 @@ app.all("/admin", (req, res) => {
             customers[customer] = Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes));
         });
 
-        if(req.query.seat)
+        if(req.query.checkout)
         {
             var selected_seat = seats.filter(function(seat)
             {
-                return seat.id == req.query.seat;
+                return seat.id == req.query.checkout;
             })[0];
 
             if(selected_seat)
             {
                 selected_seat.customer = null;
+                selected_seat.save(function(err)
+                {
+                    get_seats(function(err, seats)
+                    {
+                        if(err) console.log(err);
+
+                        res.render("admin.pug", {seats: seats, times: times, customers: customers});
+                    });
+                    
+                });
+
+                return;
+            }
+        }
+        else if(req.query.checkin)
+        {
+            var selected_seat = seats.filter(function(seat)
+            {
+                return seat.id == req.query.checkin;
+            })[0];
+
+            if(selected_seat)
+            {
+                if(!selected_seat.date) selected_seat.date = {};
+                selected_seat.date.booked = new Date();
+                selected_seat.customer = req.query.email;
                 selected_seat.save(function(err)
                 {
                     get_seats(function(err, seats)
