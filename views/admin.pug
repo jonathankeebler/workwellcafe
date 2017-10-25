@@ -1,15 +1,20 @@
 html
     head
+        link(rel="stylesheet" type="text/css" href="/styles/style.css")
+        link(rel="stylesheet" type="text/css" href="/styles/adminstyle.css")
     body
         form(action="", method="post")
-            each seat in seats
-                li
-                    span Seat #{seat.id}
-                    if seat.customer
-                        span #{seat.customer} (#{customers[seat.customer]})
-                        span #{new Date(seat.date.booked)}
-                        span #{times[seat.id]}
-                        a(href="?checkout=" + seat.id) Checkout
-                    else
-                        input(type="text", id="email" + seat.id)
-                        a(href="?checkin=" + seat.id onClick="this.href += '&email=' + encodeURI(document.getElementById('email" + seat.id + "').value) ") Checkin
+            ol(id="SeatAdmin")
+                each seat in seats
+                    li
+                        if seat.customer
+                            h2 Seat #{seat.id} 
+                                span(class="TimeInSeat") #{times[seat.id]}
+                            p(class="CheckinTime") #{new Date(seat.date.booked)}
+                            p(class="EmailAddress") #{seat.customer} 
+                                span(class="TotalTime") (#{customers[seat.customer]})
+                            a(href="?checkout=" + seat.id, class="CheckoutButton") Checkout
+                        else
+                            h2 Seat #{seat.id}
+                            input(type="text", id="email" + seat.id, placeholder="Name or email")
+                            a(href="?checkin=" + seat.id, class="CheckinButton", onClick="this.href += '&email=' + encodeURI(document.getElementById('email" + seat.id + "').value) ") Checkin
