@@ -73,9 +73,7 @@ function show_checkin(req, res)
             return seat.customer == get_email(req);
         }).map(function(seat)
         {
-            var minutes = ( new Date() - new Date(seat.date.booked) ) / 1000 / 60;
-            
-            seat.time_booked = Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes));
+            seat.time_booked = time_since_date_string(seat.date.booked);
 
             return seat;
         });
@@ -84,6 +82,12 @@ function show_checkin(req, res)
             seats: seats
         });
     });
+}
+
+function time_since_date_string(since)
+{
+    var minutes = ( new Date() - new Date(since) ) / 1000 / 60;
+    return Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes % 60));
 }
 
 app.get("/checkout", (req, res) => {
@@ -123,7 +127,7 @@ app.post("/checkout", auth.requiresLogin, (req, res) => {
             {
                 res.render("checkedout.pug", {
                     seats: seats,
-                    total_time: Math.floor(total_time / 60) + ":" + zpad(Math.floor(total_time))
+                    total_time: Math.floor(total_time / 60) + ":" + zpad(Math.floor(total_time % 60))
                 });
             });
                 
@@ -144,7 +148,7 @@ app.all("/admin", (req, res) => {
             if(seat.customer)
             {
                 var minutes = ( new Date() - new Date(seat.date.booked) ) / 1000 / 60;
-                times[seat.id] = Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes));
+                times[seat.id] = time_since_date_string(seat.date.booked)
                 
                 if(!customers[seat.customer]) customers[seat.customer] = 0;
                 customers[seat.customer] += minutes;
@@ -155,7 +159,7 @@ app.all("/admin", (req, res) => {
         Object.keys(customers).forEach(function(customer)
         {
             var minutes = customers[customer];
-            customers[customer] = Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes));
+            customers[customer] = Math.floor(minutes / 60) + ":" + zpad(Math.floor(minutes % 60));
         });
 
         if(req.query.checkout)
