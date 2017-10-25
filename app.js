@@ -204,6 +204,8 @@ app.all("/admin", (req, res) => {
                     {
                         if(err) console.log(err);
 
+                        if(!customers[req.query.email]) customers[req.query.email]  = "0:00";
+
                         res.render("admin.pug", {seats: seats, times: times, customers: customers});
                     });
                     
