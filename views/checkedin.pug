@@ -1,34 +1,51 @@
-<html>
-        
-        <head>
-            <title>Workwell Cafe</title>
-        </head>
-        
-        <body>
-            form(action="checkout", method="post")
-                <div id="Header">
-                    <h1>Checked in</h1>
-                </div>
-                if seats.length
-                    <div>
-                        <div id="inseats">
-                            <p>You're check into seat(s)</p>
-                            each seat in seats
-                                p
-                                    strong #{seat.id}
-                        </div>
-                        <div id="totaltime">
-                            <p>You've been here for</p>
-                            each seat in seats
-                                p
-                                    strong #{seat.time_booked}
-                        </div>
-                        <button type="submit">Check Out</button>
-                    </div>
-                else
-                    div
-                        div You don't have any seats booked. 
-                            a(href="/") Book now
-        </body>
-        
-        </html>
+html    
+    head
+        title Workwell Cafe - Checked In
+        link(rel="stylesheet" type="text/css" href="/styles/style.css")
+        style(type="text/css").
+            h1 {
+                background: #ccc;
+                padding: 10px;
+                color: #fff;
+                text-align: center;
+            }
+            p {
+                font-size: 24px;
+                text-align: center;
+            }
+            p strong {
+                font-size: 32px;
+            }
+            /* Checkout Button */
+            button#CheckoutButton {
+                background: #1ABC9C;
+                color: #fff;
+                font-size: 24px;
+                border: none;
+                padding: 15px 0;
+                width: 100%;
+                font-family: 'Lato', sans-serif;
+                text-shadow: none;
+                margin: 30px 0;
+            }
+    
+    body
+        form(action="checkout", method="post")
+            h1 Checked in
+            if seats.length
+                div(id="CheckedIn")
+                    div(id="inseats")
+                        p You're check into seat(s)
+                        each seat in seats
+                            p
+                                strong #{seat.id}
+                    div(id="totaltime")
+                        p You've been here for
+                        each seat in seats
+                            p
+                                strong #{seat.time_booked}
+                    button(type="submit" id="CheckoutButton") Check Out
+            else
+                div
+                    div You don't have any seats booked. 
+                        a(href="/") Book now

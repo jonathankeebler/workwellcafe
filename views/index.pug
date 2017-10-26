@@ -1,24 +1,50 @@
-<html>
+html
     
-    <head>
-        <title>Workwell Cafe</title>
-        <script src="https://cdn.auth0.com/js/auth0/8.10.1/auth0.min.js"></script>
+    head
+        title Workwell Cafe - Seats
+        link(rel="stylesheet" type="text/css" href="/styles/style.css")
+        script(src="https://cdn.auth0.com/js/auth0/8.10.1/auth0.min.js")
         style(type="text/css").
-            #communaltables {
+            #Tables {
                 position: relative;
+                width: 355px;
+            }
+            #Tables h1 {
+                margin: 30px 0 0;
+            }
+            #Tables span label {
+                margin-bottom: 0;
+            }
+            #CommunalTableLayout {
                 background: url(https://s3.amazonaws.com/workwellcafe-images/communaltables.png);
                 width: 355px;
                 height: 515px;
             }
+            #BoothTableLayout {
+                background-color: #ccc;
+                width: 355px;
+                height: 300px;
+            }
+            #GroupTableLayout {
+                background: url(/images/grouptable.png);
+                background-size: 355px auto;
+                width: 355px;
+                height: 430px;
+            }
             span {
                 position: absolute;
-                background: #7ED321;
-                padding: 2px;
+                background: #1ABC9C;
+                padding: 3px 7px 3px 3px;
                 border-radius: 5px;
+            }
+            span label {
+                color: #fff;
+                font-weight: 100;
             }
             span.taken {
                 background: #999;
             }
+            /*Communal Tables */
             #seat1 {
                 top: 105px;
                 left: 44px;
@@ -31,37 +57,139 @@
                 top: 26px;
                 left: 167px;
             }
-    </head>
+            #seat4 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat5 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat6 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat7 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat8 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat9 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat10 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat11 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat12 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat13 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat14 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat15 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat16 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat17 {
+                top: 26px;
+                left: 167px;
+            }
+            #seat18 {
+                top: 26px;
+                left: 167px;
+            }
+            /* Booth Tables */
+            #seat19 {
+                top: 695px;
+                left: 10px;
+            }
+            #seat20 {
+                top: 695px;
+                left: 110px;
+            }
+            #seat21 {
+                top: 695px;
+                left: 210px;
+            }
+            #seat22 {
+                top: 735px;
+                left: 10px;
+            }
+            /* Group Tables */
+            #seat23 {
+                top: 1276px;
+                left: 152px;
+            }
+            /* Checkin Button */
+            input#CheckinButton {
+                background: #1ABC9C;
+                color: #fff;
+                font-size: 22px;
+                border: none;
+                padding: 15px 0;
+                width: 100%;
+                font-family: 'Lato', sans-serif;
+                text-shadow: none;
+                margin: 30px 0;
+                border-radius: 10px;
+            }
+            /* Logout Button */
+            input#LogoutButton {
+                border: none;
+                background: #fff;
+                padding: 5px 0;
+                font-size: 14px;
+                width: 100%;
+                color: #333;
+                border-radius: 5px;
+                text-decoration: underline;
+            }
     
-    <body>
-        <div id="Header">
-            <h1>Communal tables</h1>
-        </div>
-
-        if logged_in
-            form(action="logout", method="post")
-                input(type="submit", value="Logout")
+    body
 
         form(action="checkedin", method="post")
 
-
-            <div id="communaltables">
-
-                
+            div(id="Tables")
+                div(id="CommunalTables")
+                    h1 Communal Tables
+                    div(id="CommunalTableLayout")
+                div(id="BoothTables")
+                    h1 Semi-Private Booths
+                    div(id="BoothTableLayout")
+                div(id="GroupTables")
+                    h1 Group Tables
+                    div(id="GroupTableLayout")
+                    
                 each seat in seats
                     if !seat.customer
                         span(id="seat" + seat.id)
-                            input(type='checkbox', name="seat-" + seat.id) 
-                            label Seat #{seat.id}
+                            input(type='checkbox', name="seat-" + seat.id, id="seat-" + seat.id) 
+                            label(for="seat-" + seat.id) Seat #{seat.id}
                     if seat.customer
                         span(id="seat" + seat.id, class="taken")
                             input(type='checkbox', name="seat-" + seat.id, checked, disabled) 
                             label Seat #{seat.id}
+                input(type="submit", value="Check in!", id="CheckInButton")
 
-            </div>
-
-            input(type="submit", value="Check in!")
-
-    </body>
-    
-</html>
+                if logged_in
+                form(action="logout", method="post")
+                    input(type="submit", value="Logout", id="LogoutButton")

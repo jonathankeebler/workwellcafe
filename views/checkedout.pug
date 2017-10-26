@@ -1,22 +1,43 @@
-<html>
-        
-        <head>
-            <title>Workwell Cafe</title>
-        </head>
-        
-        <body>
-            <div id="Header">
-                <h1>Thank you!</h1>
-            </div>
-            <div>
-                <div id="inseats">
-                    <p>Pay for your drinks, food and seats at the counter on your way out.</p>
-                    each seat in seats
-                        <p><strong>Seat: #{seat.id}</strong></p>
-                    <p><strong>#{total_time}</strong></p>
-                </div>
-                <a href="/">Done</a>
-            </div>
-        </body>
-        
-        </html>
+html
+    head
+        title Workwell Cafe - Thank you!
+        link(rel="stylesheet" type="text/css" href="/styles/style.css")
+        style(type="text/css").
+            h1 {
+                background: #ccc;
+                padding: 10px;
+                color: #fff;
+                text-align: center;
+            }
+            p {
+                font-size: 24px;
+                text-align: center;
+            }
+            p strong {
+                font-size: 32px;
+            }
+            /* Checkout Button */
+            a#DoneButton {
+                background: #1ABC9C;
+                color: #fff;
+                font-size: 24px;
+                border: none;
+                padding: 15px 0;
+                width: 100%;
+                font-family: 'Lato', sans-serif;
+                text-shadow: none;
+                margin: 30px 0;
+                display: block;
+                text-align: center;
+            }
+    
+    body
+        h1 Thank you!
+        div(id="inseats")
+            p Pay for your drinks, food and seats at the counter on your way out.
+            each seat in seats
+                p
+                    strong Seat: #{seat.id}
+            p
+                strong #{total_time}
+        a(href="/", id="DoneButton") Done
