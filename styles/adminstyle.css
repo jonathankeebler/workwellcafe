@@ -5,6 +5,7 @@ ol#SeatAdmin li {
     margin: 10px;
     height: 235px;
     width: 335px;
+    border-radius: 5px;
 }
 
 ol#SeatAdmin li {
@@ -17,6 +18,8 @@ ol#SeatAdmin li input {
     height: 85px;
     font-size: 40px;
     padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 a.CheckoutButton, a.CheckinButton {
@@ -25,6 +28,7 @@ a.CheckoutButton, a.CheckinButton {
     color: #fff;
     text-align: center;
     padding: 12px;
+    border-radius: 5px;
 }
 
 ol#SeatAdmin li p.CheckinTime {
@@ -33,4 +37,14 @@ ol#SeatAdmin li p.CheckinTime {
 
 ol#SeatAdmin li p.EmailAddress {
     font-weight: bold;
+}
+
+a#RefreshButton {
+    display: block;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-size: 22px;
+    border-radius: 5px;
 }
