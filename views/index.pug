@@ -8,7 +8,7 @@ html
         style(type="text/css").
             #Tables {
                 position: relative;
-                width: 355px;
+                width: 100%;
             }
             #Tables h1 {
                 margin: 30px 0 0;
@@ -18,14 +18,11 @@ html
             }
             #CommunalTableLayout {
                 width: 355px;
-            }
-            .CommunalTable {
-                width: 355px;
-                height: 240px;
+                height: 220px;
             }
             #BoothTableLayout {
                 width: 355px;
-                height: 130px;
+                height: 80px;
             }
             #GroupTableLayout {
                 width: 355px;
@@ -40,81 +37,98 @@ html
             span label {
                 color: #fff;
                 font-weight: 100;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                padding-left: 5px;
             }
             span.taken {
                 background: #999;
             }
             /*Communal Tables */
             #seat1 {
-                top: 100px;
+                top: 55px;
             }
             #seat2 {
-                top: 130px;
+                top: 90px;
             }
             #seat3 {
-                top: 160px;
+                top: 125px;
             }
             #seat4 {
-                top: 190px;
+                top: 160px;
             }
             #seat5 {
-                top: 220px;
+                top: 195px;
             }
             #seat6 {
-                top: 250px;
+                top: 230px;
             }
             #seat7 {
-                top: 340px;
+                top: 55px;
+                left: 100px;
             }
             #seat8 {
-                top: 370px;
+                top: 90px;
+                left: 100px;
             }
             #seat9 {
-                top: 400px;
+                top: 125px;
+                left: 100px;
             }
             #seat10 {
-                top: 430px;
+                top: 160px;
+                left: 100px;
             }
             #seat11 {
-                top: 460px;
+                top: 195px;
+                left: 100px;
             }
             #seat12 {
-                top: 490px;
+                top: 230px;
+                left: 100px;
             }
             #seat13 {
-                top: 580px;
+                top: 55px;
+                left: 200px;
             }
             #seat14 {
-                top: 610px;
+                top: 90px;
+                left: 200px;
             }
             #seat15 {
-                top: 640px;
+                top: 125px;
+                left: 200px;
             }
             #seat16 {
-                top: 670px;
+                top: 160px;
+                left: 200px;
             }
             #seat17 {
-                top: 700px;
+                top: 195px;
+                left: 200px;
             }
             #seat18 {
-                top: 730px;
+                top: 230px;
+                left: 200px;
             }
             /* Booth Tables */
             #seat19 {
-                top: 855px;
+                top: 360px;
             }
             #seat20 {
-                top: 885px;
+                top: 360px;
+                left: 100px;
             }
             #seat21 {
-                top: 915px;
+                top: 360px;
+                left: 200px;
             }
             #seat22 {
-                top: 945px;
+                top: 395px;
             }
             /* Group Tables */
             #seat23 {
-                top: 1070px;
+                top: 525px;
             }
             /* Checkin Button */
             input#CheckinButton {
@@ -149,14 +163,8 @@ html
                 div(id="CommunalTables")
                     h1 Communal Tables
                     div(id="CommunalTableLayout")
-                        div(id="TableOne", class="CommunalTable")
-                            h2 Table One
-                        div(id="TableTwo", class="CommunalTable")
-                            h2 Table Two
-                        div(id="TableThree", class="CommunalTable")
-                            h2 Table Three
                 div(id="BoothTables")
-                    h1 Semi-Private Booths
+                    h1 Booths
                     div(id="BoothTableLayout")
                 div(id="GroupTables")
                     h1 Group Tables
