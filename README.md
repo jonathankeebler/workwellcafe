@@ -4,8 +4,7 @@ The seat registration system behind the [WorkWell Cafe](http://www.workwellcafe.
 
 
 ## Requirements
-- node.js >=6
-- Stripe secret key (YOUR_SECRET_CODE in sample code below)
+- node.js 6.10 (to match AWS Lambda)
 - AWS credentials configured in your shell
 - Auth0 config variables in your shell 
 ```
